@@ -1,0 +1,624 @@
+$primaryColor:  rgb(10, 186, 181),;
+$errorColor: rgb(217, 0, 18);
+$borderColor: rgb(189, 184, 174);
+$darkBlue: #3f3a5c;
+
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@mixin btn_animation ($first_color, $second_color) {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: transparent;
+    border: 2px solid $first_color;
+    color: $first_color;
+    width: 55%;
+    height: 40px;
+    min-width: 80px;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+
+    
+
+    span {
+        position: absolute;
+        width: 25%;
+        height: 100%;
+        background-color: $first_color;
+        z-index: -1;
+        left: calc((var(--n) - 1) * 25%);
+        transform: translateY(200%);
+        transition: 0.5s;
+        transition-delay: calc((var(--n) - 1) * 0.1s);
+      }
+
+      &:hover {
+        color: $second_color;
+      }
+      &:hover span {
+        transform: translateY(0) scale(2);
+      }
+
+      span:nth-child(1) {
+        --n: 1;
+      }
+      span:nth-child(2) {
+        --n: 2;
+      }
+      span:nth-child(3) {
+        --n: 3;
+      }
+      span:nth-child(4) {
+        --n: 4;
+      }
+}
+
+
+body,
+html, 
+#main_cont {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: $darkBlue;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    text-align: center;
+  }
+
+body{
+    background-image: url(img/login_background.jpg); 
+    background-attachment: fixed;
+    background-size: cover; 
+}
+
+button:focus, button:active{
+    outline: none !important;
+    box-shadow: none !important;
+}
+h1{
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+input{
+    text-align: left;
+    padding-left: 0.5rem;
+    background-color: rgb(255, 255, 240);
+}
+#main_cont{
+  @include flexCenter();
+  min-height: 575px;
+}
+#main_box{
+    
+    display: flex;
+    height: 80%;
+    width: 60%;
+    min-height: 575px;
+    min-width: 645px;
+    position: relative;
+}
+
+#left_box{
+    height: 100%;
+    width: 35%;
+    color: #fff;
+    background-color: red;
+    border-radius:  20px 0 0 20px ;
+    background-color: rgba(103, 181, 179, 0.8);
+    color: #fff;
+
+    &:hover{
+        background-image: linear-gradient( $primaryColor, rgb(9, 230, 223), $primaryColor);
+    }
+}
+#left_box.shrink{
+    animation: shrink 0.35s ease-out;
+
+    #sign_msg{
+        letter-spacing: -1px;
+    }
+}
+@keyframes shrink{
+    50%{
+        width: 30%;
+    }
+    100%{
+        width: 35%;
+    }
+}
+#big_logo_cont{
+    @include flexCenter();
+    flex-direction: column;
+    width: 100%;
+    height: 55%;
+    
+    svg{
+        height: 80%;
+    }
+}
+
+
+.tumbling{
+    animation: tumbling 1.5s linear;
+}
+@keyframes tumbling{
+    
+    25%{
+        transform: rotate(15deg);
+        transform-origin: 40% 50%; 
+    }
+    50%{
+        transform: rotate(-15deg);
+        transform-origin: 40% 50%; 
+    }
+    75%{
+        transform: rotate(15deg);
+        transform-origin: 40% 50%; 
+    }
+    
+    100%{
+        transform: rotate(-15deg);
+        transform-origin: 40% 50%; /* Chrome, Firefox behaves differently */
+    }
+}
+#big_logo{
+    z-index: 60;
+}
+#big_logo.logo_movel{
+    animation: logo_move 1s linear;
+}
+@keyframes logo_move{
+    30%{
+        transform: translate(90%, 100%);
+    }
+    60%{
+        transform: translate(200%, 0%);
+    }
+}
+
+
+#wave_front{
+    animation: waveFront 5s infinite linear;
+    fill:#ffffff;
+    fill-opacity: 1;
+  }
+  
+  @keyframes waveFront {
+    25% {
+        d: path('M132.05,38.78 C256.99,59.50 335.44,110.81 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
+    }
+  
+    50%{
+      d: path('    M132.05,38.78 C251.92,129.56 408.80,21.01 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
+    }
+  
+    75%{
+      d: path('M132.05,38.78 C256.99,59.50 335.44,110.81 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
+    }
+    
+    100%{
+      d: path('M132.05,38.78 C251.69,5.24 327.31,180.89 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
+    }
+  }
+  #wave_mid{
+    animation: waveMid 5s infinite linear;
+    fill: lightblue;
+    fill-opacity: 1;
+  }
+  
+  @keyframes waveMid {
+    25% {
+        d: path('M138.48,79.24 C221.44,84.18 357.44,-37.20 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
+    }
+  
+    50%{
+      d: path('M133.97,40.75 C333.75,-31.27 348.98,143.39 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
+    }
+  
+    75%{
+      d: path('M138.48,79.24 C221.44,84.18 357.44,-37.20 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
+    }
+    
+    100%{
+      d: path('M138.48,79.24 C323.59,122.66 412.75,-7.59 497.40,39.76 L495.71,298.31 L134.53,298.31 Z');
+    }
+  }
+  
+  #wave_back{
+    animation: waveBack 5s infinite linear;
+    fill: $darkBlue;
+    fill-opacity: 1;
+  }
+  
+  @keyframes waveBack {
+    25% {
+        d: path('M135.10,65.43 C277.88,11.15 411.62,24.96 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
+    }
+  
+    50%{
+      d: path('M135.10,65.43 C286.34,88.13 371.56,-58.91 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
+    }
+  
+    75%{
+      d: path('M135.10,65.43 C277.88,11.15 411.62,24.96 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
+    }
+    
+    100%{
+      d: path('M132.84,47.66 C333.75,-26.34 403.72,98.98 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
+    }
+  }
+  
+.brand_name{
+    @include flexCenter();
+    flex-direction: column;
+    font-size: 2em;
+    font-family: 'Arvo', serif;
+    line-height: 10px;
+    width: 100%;
+    height: 10%;
+    p{
+        padding: 5px;
+        font-family: "Lato", sans-serif;
+        white-space: nowrap;
+      }
+}
+#toggle_cont{
+    @include flexCenter();
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 35%;
+    text-align: center;
+}
+#toggle_sign_log_btn_box{
+    width: 100%;
+    height: 100%;
+}
+.left_btn{
+    @include btn_animation(#fff, $primaryColor);
+}
+
+#ereaser{
+    height: 100%;
+    position: absolute;
+    left: 35%;
+    width: 0%;
+    border-radius: 0 20px 20px 0;
+    background-color: transparent;
+    z-index: 50;  
+    pointer-events: none;
+    
+
+    span{
+        display: block;
+        width: 0%;
+        height: 33.33%;
+        background-color: $darkBlue;
+        
+    }
+    span:nth-child(1) {
+        --n: 1;
+        background-color: $darkBlue;
+        border-radius: 0 20px 0 0;
+      }
+      span:nth-child(2) {
+        --n: 2;
+        background-color: lightblue;
+      }
+      span:nth-child(3) {
+        --n: 3;
+        background-color: #fff;
+        border-radius: 0 0 20px 0;
+      }
+      
+}
+#ereaser.erease{
+    animation: erease 2s linear;
+
+    span{
+        animation: ereaseSpan 1s linear;
+        animation-delay: calc((var(--n) - 1) * 0.1s);;
+    }
+    
+}
+@keyframes erease{
+    10%{
+        width: 65%;
+    }
+    90%{width: 65%;}
+    100%{
+        width: 0;
+    }
+}
+@keyframes ereaseSpan{
+    40%{
+        width: 100%;
+    }
+    70%{width: 100%;}
+    100%{
+        width: 0;
+    }
+}
+.to_log_in.hide, .to_sign_up.hide{
+    display: none;
+}
+
+
+
+
+#right_box{
+    @include flexCenter();
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    flex-grow: 1;
+    background-color: rgba(255, 255, 240, 0.8);
+    border-radius: 0 20px 20px 0;
+
+    &:hover{
+        background-color: rgb(255, 255, 240); 
+    }
+}
+
+header{
+    p{
+        margin: 0.5rem 0 ;
+    }
+}
+main{
+    @include flexCenter();
+    width: 100%;
+}
+
+#log_form{
+    @include flexCenter();
+    flex-direction: column;
+    width: 100%;
+}
+.form_group{
+    position: relative;
+    width: 80%;
+    display: flex;
+    margin-top: 2rem;
+    
+    &[data-icon]::before{
+
+        content: attr(data-icon);
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1.4em;
+        padding: 0.2em;
+        display: inline-block;
+        vertical-align: middle;
+        width: 1em;
+        height: 1em;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        color: #fff;
+        background-color: $primaryColor;
+        border-radius:   10px 0 0 10px;
+
+        /*Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';    
+        
+    }
+}
+.cust_input{
+    width: 100%;
+    border: 2px solid $borderColor;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    color: $errorColor;
+
+    &:focus +.border_focus,
+    &:hover + .border_focus, 
+    &:valid + .border_focus, 
+    &:not(:placeholder-shown) + .border_focus{
+		transition: 0.5s;
+    transform: translate(-1rem, -2.3rem);
+    padding-left: 3px;
+	}
+	
+	&:hover{
+		border-color: $primaryColor;
+	}
+
+	&:focus{
+		outline:none;
+		border-color: $primaryColor;
+	}
+
+	&:valid{
+		border-color: $primaryColor;
+		outline: none;
+		color: $primaryColor;
+	}
+
+}
+.border_focus{
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.rigth_btn{
+    @include btn_animation($primaryColor,#fff );
+    width: 60%;
+    min-width: 220px;
+}
+#log_in_btn{
+    width: 20%;
+    margin-top: 3rem;
+}
+#sign_up_btn{
+    width: 20%;
+    margin-top: 2rem;
+}
+#sign_or_continue{
+    @extend .or_continue;
+    margin-top: 0;
+}
+.sign_right_btn{
+    @extend .rigth_btn;
+    width: 30%;
+}
+footer{
+    width: 100%;
+    @include flexCenter();
+    flex-direction: column;
+}
+.or_continue{
+    width: 100%;
+    &::before, &::after{
+        content: "";
+        border-top: 1px solid #3f3a5c;
+        width: 6rem;
+        height: 100%;
+        display: inline-block;
+        
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    
+    #main_cont{
+        @include flexCenter();
+        flex-direction: column;
+    }
+    #main_box{
+        min-width: 300px;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+    #left_box{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        border-radius: 0;
+        height: 15%;
+    }
+    #left_box.shrink{
+        animation: none;
+    }
+    #big_logo_cont{
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg{
+            height: 100%;
+            
+        }
+    }
+    .brand_name{
+        @include flexCenter();
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        font-size: 2rem;
+        p{
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+    }
+    #sign_msg{
+        display: none;
+    }
+    #toggle_cont{
+        width: 25%;
+        height: 100%;
+        @include flexCenter();
+    }
+    
+    #toggle_sign_log_btn{
+        font-size: 0.9em;
+        word-spacing: 0.2em;
+        border-radius: 50px;
+        min-width: 0;
+        width: 4em;
+        height: 4em;
+        margin-bottom: 0;
+        padding: 0;
+        overflow-wrap: break-word;
+
+    }
+    #right_box{
+        height: 85%;
+        width: 100%;
+        border-radius: 0;
+        font-size: 1.5em;
+    }
+    header{
+        font-size: 0.7em;
+        p{
+            font-size: 0.9rem;
+        }
+    }
+    #log_in_btn{
+        margin-top: 40px;
+    }
+    footer{
+        p{
+            margin: 10px 0;
+        }
+        padding-bottom: 20px;
+    }
+    #ereaser{
+        left: 0;
+        height: 85%;
+        top: 15%;
+        width: 100%;
+        
+        span{
+            width: 0;
+        }
+        span:nth-child(1) {
+            background-color: $darkBlue;
+            border-radius: 0;
+          }
+          span:nth-child(2) {
+            background-color: lightblue;
+          }
+          span:nth-child(3) {
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+          }
+    }
+    #ereaser.erease{
+        animation: none;
+    }
+    
+}
