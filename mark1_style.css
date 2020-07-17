@@ -586,7 +586,7 @@ main {
   width: 100%;
 }
 
-#log_form {
+#log_form, #sign_form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -792,6 +792,16 @@ footer {
   display: inline-block;
 }
 
+.error_msg {
+  font-size: 0.9em;
+  color: #d90012;
+}
+
+.success_msg {
+  font-size: 1em;
+  color: #5cb85c;
+}
+
 @media only screen and (max-width: 768px) {
   #main_cont {
     display: -webkit-box;
@@ -900,6 +910,7 @@ footer {
     width: 100%;
     border-radius: 0;
     font-size: 1.5em;
+    overflow-y: scroll;
   }
   header {
     font-size: 0.7em;

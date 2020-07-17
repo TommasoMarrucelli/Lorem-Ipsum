@@ -1,5 +1,6 @@
 $primaryColor:  rgb(10, 186, 181),;
 $errorColor: rgb(217, 0, 18);
+$succesColor: rgb(92, 184, 92);
 $borderColor: rgb(189, 184, 174);
 $darkBlue: #3f3a5c;
 
@@ -384,7 +385,7 @@ main{
     width: 100%;
 }
 
-#log_form{
+#log_form, #sign_form{
     @include flexCenter();
     flex-direction: column;
     width: 100%;
@@ -507,6 +508,18 @@ footer{
         
     }
 }
+.error_msg{
+    font-size: 0.9em;
+    color: $errorColor;
+}
+.success_msg{
+    font-size: 1em;
+    color: $succesColor;
+}
+
+
+
+
 
 
 @media only screen and (max-width: 768px) {
@@ -580,6 +593,7 @@ footer{
         width: 100%;
         border-radius: 0;
         font-size: 1.5em;
+        overflow-y: scroll;
     }
     header{
         font-size: 0.7em;
