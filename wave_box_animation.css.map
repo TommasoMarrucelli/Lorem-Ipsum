@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iBAAiB,CAAA;EACb,QAAQ,EAAE,QAAQ;EAClB,SAAS,EAAE,iCAAiC;CAE/C;;AAED,UAAU,CAAV,YAAU;EACN,EAAE;IACE,qBAAqB,EAAE,GAAG;;EAE9B,IAAI;IACA,qBAAqB,EAAE,MAAM",
+    "sources": [
+        "wave_box_animation.scss"
+    ],
+    "names": [],
+    "file": "wave_box_animation.css"
+}

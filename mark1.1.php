@@ -82,7 +82,7 @@ if ($_POST['form_name'] == 'to_log') {
 
        
             
-            $stmt = $dbh->prepare("SELECT username, pwd FROM user WHERE username = ? OR email = ? ");
+            $stmt = $dbh->prepare("SELECT user_id, username, pwd FROM user WHERE username = ? OR email = ? ");
             $stmt->bindParam( 1, $uname_or_mail, PDO::PARAM_STR);
             $stmt->bindParam( 2, $uname_or_mail, PDO::PARAM_STR);
             $stmt->execute();
@@ -95,6 +95,7 @@ if ($_POST['form_name'] == 'to_log') {
                 if(password_verify($password, $results['pwd'])){
                     session_start();
                     $_SESSION["username"] = $results['username'];
+                    $_SESSION["user_id"] = $results['user_id'];
                     $log_msg['log_success'] = "home.php";
                 }
                 else{

@@ -1,8 +1,5 @@
-$primaryColor:  rgb(10, 186, 181),;
-$errorColor: rgb(217, 0, 18);
-$succesColor: rgb(92, 184, 92);
-$borderColor: rgb(189, 184, 174);
-$darkBlue: #3f3a5c;
+@import "style_variables";
+@import "logo_animation";
 
 
 @mixin flexCenter {
@@ -70,7 +67,7 @@ html,
   width: 100%;
   margin: 0;
   padding: 0;
-  color: $darkBlue;
+  color: $darkText;
 }
 
 *{
@@ -97,7 +94,7 @@ h1{
 input{
     text-align: left;
     padding-left: 0.5rem;
-    background-color: rgb(255, 255, 240);
+    background-color: $secondaryColor;
 }
 #main_cont{
   @include flexCenter();
@@ -119,7 +116,7 @@ input{
     color: #fff;
     background-color: red;
     border-radius:  20px 0 0 20px ;
-    background-color: rgba(103, 181, 179, 0.8);
+    background-color: $transparentPrimaryColor;
     color: #fff;
 
     &:hover{
@@ -179,89 +176,10 @@ input{
 #big_logo{
     z-index: 60;
 }
-#big_logo.logo_movel{
-    animation: logo_move 1s linear;
-}
-@keyframes logo_move{
-    30%{
-        transform: translate(90%, 100%);
-    }
-    60%{
-        transform: translate(200%, 0%);
-    }
-}
 
 
-#wave_front{
-    animation: waveFront 5s infinite linear;
-    fill:#ffffff;
-    fill-opacity: 1;
-  }
-  
-  @keyframes waveFront {
-    25% {
-        d: path('M132.05,38.78 C256.99,59.50 335.44,110.81 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
-    }
-  
-    50%{
-      d: path('    M132.05,38.78 C251.92,129.56 408.80,21.01 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
-    }
-  
-    75%{
-      d: path('M132.05,38.78 C256.99,59.50 335.44,110.81 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
-    }
-    
-    100%{
-      d: path('M132.05,38.78 C251.69,5.24 327.31,180.89 491.19,37.79 L486.11,282.53 L135.44,289.44 Z');
-    }
-  }
-  #wave_mid{
-    animation: waveMid 5s infinite linear;
-    fill: lightblue;
-    fill-opacity: 1;
-  }
-  
-  @keyframes waveMid {
-    25% {
-        d: path('M138.48,79.24 C221.44,84.18 357.44,-37.20 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
-    }
-  
-    50%{
-      d: path('M133.97,40.75 C333.75,-31.27 348.98,143.39 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
-    }
-  
-    75%{
-      d: path('M138.48,79.24 C221.44,84.18 357.44,-37.20 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
-    }
-    
-    100%{
-      d: path('M138.48,79.24 C323.59,122.66 412.75,-7.59 497.40,39.76 L495.71,298.31 L134.53,298.31 Z');
-    }
-  }
-  
-  #wave_back{
-    animation: waveBack 5s infinite linear;
-    fill: $darkBlue;
-    fill-opacity: 1;
-  }
-  
-  @keyframes waveBack {
-    25% {
-        d: path('M135.10,65.43 C277.88,11.15 411.62,24.96 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
-    }
-  
-    50%{
-      d: path('M135.10,65.43 C286.34,88.13 371.56,-58.91 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
-    }
-  
-    75%{
-      d: path('M135.10,65.43 C277.88,11.15 411.62,24.96 513.20,90.09 L495.71,298.31 L134.53,298.31 Z');
-    }
-    
-    100%{
-      d: path('M132.84,47.66 C333.75,-26.34 403.72,98.98 506.99,76.28 L495.71,298.31 L134.53,298.31 Z');
-    }
-  }
+
+
   
 .brand_name{
     @include flexCenter();
@@ -308,12 +226,12 @@ input{
         display: block;
         width: 0%;
         height: 33.33%;
-        background-color: $darkBlue;
+        background-color: $darkText;
         
     }
     span:nth-child(1) {
         --n: 1;
-        background-color: $darkBlue;
+        background-color: $darkText;
         border-radius: 0 20px 0 0;
       }
       span:nth-child(2) {
@@ -367,11 +285,11 @@ input{
     justify-content: flex-start;
     height: 100%;
     flex-grow: 1;
-    background-color: rgba(255, 255, 240, 0.8);
+    background-color: $transparentSecondaryColor;
     border-radius: 0 20px 20px 0;
 
     &:hover{
-        background-color: rgb(255, 255, 240); 
+        background-color: $secondaryColor; 
     }
 }
 
@@ -620,7 +538,7 @@ footer{
             width: 0;
         }
         span:nth-child(1) {
-            background-color: $darkBlue;
+            background-color: $darkText;
             border-radius: 0;
           }
           span:nth-child(2) {
