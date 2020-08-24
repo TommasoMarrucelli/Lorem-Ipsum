@@ -7,8 +7,11 @@ search_form.addEventListener('submit', function(e){
 
     delete_previous_results();
 
+    
 
     let formData = new FormData(this);
+   document.getElementById('loading_img_box').style.display = "flex";    
+
 
     fetch('home1.1.php', {
         method : 'post',
@@ -19,9 +22,11 @@ search_form.addEventListener('submit', function(e){
         
         result = text;
         
+       
         document.querySelector('main').insertAdjacentHTML( 'beforeend', text );
 
         highlight_page();
+        document.getElementById('loading_img_box').style.display = "none";
         show_tooltip();
 
     }).catch(function(error){
@@ -196,6 +201,40 @@ function clicked_star(event, element){
 
 }
 
+function like_book(event, element){
+
+    let checkbox_id = element.id;
+    let book_id = checkbox_id.substring(6);
+    
+    element.classList.toggle("liked");
+
+    let like = (element.classList.contains("liked")) ? 1 : 0;
+
+    event.preventDefault();
+
+
+    let formData = new FormData();
+
+    formData.append("form_function", 'like_book');
+    formData.append("like", like);
+    formData.append("book_id", book_id);
+
+    
+    fetch('home1.1.php', {
+        method : 'post',
+        body : formData
+    }).then(function (response){
+        return response.text();
+    }).then(function(text){
+        
+        console.log(text);
+
+    }).catch(function(error){
+        console.log(error);
+    })
+
+
+}
 
 function show_tooltip(){
    let help_btn =  document.querySelectorAll('.help_tips');

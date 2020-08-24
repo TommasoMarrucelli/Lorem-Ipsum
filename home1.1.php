@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $search_for = "https://www.googleapis.com/books/v1/volumes?q=";
 $search_parameters = "&maxResults=10&startIndex=";
 
@@ -35,6 +35,9 @@ print10($results);
 $footer_start = ($page_number > 0) ? '<section id= "page_box"><input type = "hidden" id="highlight_page" name = "highlight_page" value= "'.$page_number.'"><button type = "submit" form = "search_form" name = "page_number" onclick = "change_page('.($page_number - 1).')">Prev</button>' : '<section id= "page_box"><input type = "hidden" id="highlight_page" name = "highlight_page" value= "'.$page_number.'">';
 $footer_end = ($page_number < $total_pages) ? '<button type = "submit" form = "search_form" name = "page_number" onclick = "change_page('.($page_number + 1).')">Next</button></section>' : '</section>';
 
+print_r($_SESSION['records']);
+
+
 $pages = [];
 
 array_push($pages, $footer_start);
@@ -58,7 +61,6 @@ echo(implode(" ",$pages));
 
 if($_POST['form_function'] == 'rate_book'){
 
-    session_start();
     //connect to database
     include 'includes/pdo_connect.php';
 
@@ -66,11 +68,12 @@ if($_POST['form_function'] == 'rate_book'){
     $book_id = $_POST['book_id'];
     $rating = $_POST['rating'];
 
-    $stmt = $dbh->prepare("SELECT book_rate FROM library WHERE user_id = ? AND book_id = ? ");
+    $stmt = $dbh->prepare("SELECT * FROM library WHERE user_id = ? AND book_id = ? ");
             $stmt->bindParam( 1, $user_id);
             $stmt->bindParam( 2, $book_id);
             $stmt->execute();
             $results = $stmt->fetch(PDO::FETCH_ASSOC);
+            
 
             if($stmt->rowCount() == 0){
                 $stmt = $dbh->prepare("INSERT INTO library (user_id, book_id, book_rate) VALUES (:user_id, :book_id, :book_rate)");
@@ -87,23 +90,43 @@ if($_POST['form_function'] == 'rate_book'){
                 $stmt->execute();
             }
 
-    
-
-   
+    update_liked_book_session($_SESSION["records"], $book_id, $rating);
 }
 
+if($_POST['form_function'] == 'like_book'){
 
+    //connect to database
+    include 'includes/pdo_connect.php';
 
+    $user_id = $_SESSION['user_id'];
+    $book_id = $_POST['book_id'];
+    $like = $_POST['like'];
 
+    $stmt = $dbh->prepare("SELECT * FROM library WHERE user_id = ? AND book_id = ? ");
+            $stmt->bindParam( 1, $user_id);
+            $stmt->bindParam( 2, $book_id);
+            $stmt->execute();
+            $results = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            if($stmt->rowCount() == 0){
+                $stmt = $dbh->prepare("INSERT INTO library (user_id, book_id, book_like) VALUES (:user_id, :book_id, :book_like)");
+                $stmt->bindParam(':user_id', $user_id);
+                $stmt->bindParam(':book_id', $book_id);
+                $stmt->bindParam(':book_like', $like);
+                $stmt->execute();
+            }
+            if($stmt->rowCount() == 1){
+                $stmt = $dbh->prepare("UPDATE library SET book_like = :book_like WHERE user_id = :user_id AND book_id = :book_id");
+                $stmt->bindParam(':user_id', $user_id);
+                $stmt->bindParam(':book_id', $book_id);
+                $stmt->bindParam(':book_like', $like);
+                $stmt->execute();
+            }
+    
+        update_liked_book_session($_SESSION["records"], $book_id, $like);
 
+}
 
-
-
-
-
-
-   
 
 function print10($results){
 
@@ -119,21 +142,94 @@ function print10($results){
         $categories_list = list_category($results, $x);
         $language = $results['items'][$x]['volumeInfo']['language'];
         $description = check_description($results, $x);
+        $user_know_book = check_if_known_book($book_id, $_SESSION['records']);
 
-        echo('<article id="'.$book_id.'" class="book_box" data-aos="zoom-in" data-aos-duration="1500"><section class="book_title">'.$title.'</section><section class="book_thumbnail"><img src = "'.$thumbnail.'" alt = "N/A"></section><section class="book_details"><table><tr><td>Authors:</td><td>'.$authors_list.'</td></tr><tr><td>Published Date:</td><td>'.$published_date.'</td></tr><tr><td>Pages:</td><td>'.$page_count.'</td></tr><tr><td>Categories:</td><td>'.$categories_list.'</td></tr><tr><td>Language:</td><td>'.$language.'</td></tr></table></section><section class = "book_description"><div class = "scroll_content">'.$description.'</div></section><section class="book_rating"><form class="like_form" id = "like_form_'.$book_id.'"><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'"> <span class="material-icons help_tips">help</span><span id="like_tooltip_'.$book_id.'" class="rating_tooltip">Add to your favourites</span><div class="custom_check_cont"><input  id="check_'.$book_id.'" name = "check_'.$book_id.'" type= "checkbox" value = "liked" class = "like_btn"><label for = "check_'.$book_id.'" class = "like_checkbox""><span class="material-icons like_icon">favorite</span></label></div></form><form class="rating_form" id="rating_form_'.$book_id.'"><span id="star_tooltip" class="rating_tooltip">Your rating</span><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'">
+        $star1 ="";
+        $star2 ="";
+        $star3 ="";
+        $star4 ="";
+        $star5 ="";
         
-        <input type = "checkbox" class="star_check" id = "star_check_0_'.$book_id.'" name = "star_check_0" value = "0"><label for = "star_check_0"  class="star" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
 
-          <input type = "checkbox" class="star_check" id = "star_check_1_'.$book_id.'" name = "star_check_1" value = "1"><label for = "star_check_1"  class="star" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+        $book_rate = (!empty($user_know_book["book_rate"])) ? $user_know_book["book_rate"] : "";
 
-          <input type = "checkbox" class="star_check" id = "star_check_2_'.$book_id.'" name = "star_check_2" value = "2"><label for = "star_check_2"  class="star" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+        switch ($book_rate) {
 
-          <input type = "checkbox" class="star_check" id = "star_check_3_'.$book_id.'" name = "star_check_3" value = "3"><label for = "star_check_3"  class="star" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+            case 0.5:
+                $star1 = "half_clicked";
+                break;
+            case 1:
+                $star1 = "full_clicked";
+                break;
+            case 1.5:
+                $star1 = "full_clicked";
+                $star2 = "half_clicked";
+                break;
+            case 2:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                break;
+            case 2.5:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "half_clicked";
+                break;
+            case 3:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "full_clicked";
+                break;
+            case 3.5:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "full_clicked";
+                $star4 = "half_clicked";
+                break;
+            case 4:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "full_clicked";
+                $star4 = "full_clicked";
+                break;
+            case 4.5:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "full_clicked";
+                $star4 = "full_clicked";
+                $star5 = "half_clicked";
+                break;
+            case 5:
+                $star1 = "full_clicked";
+                $star2 = "full_clicked";
+                $star3 = "full_clicked";
+                $star4 = "full_clicked";
+                $star5 = "full_clicked";
+                break;
+            
+        }
 
-          <input type = "checkbox" class="star_check" id = "star_check_4_'.$book_id.'" name = "star_check_4" value = "4"><label for = "star_check_4"  class="star" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+        $book_like = ($user_know_book["book_like"] == 1) ? "liked" : "";
+        
+        echo('<article id="'.$book_id.'" class="book_box" data-aos="zoom-in" data-aos-duration="1500"><section class="book_title">'.$title.'</section><section class="book_thumbnail"><img src = "'.$thumbnail.'" alt = "N/A"></section><section class="book_details"><table><tr><td>Authors:</td><td>'.$authors_list.'</td></tr><tr><td>Published Date:</td><td>'.$published_date.'</td></tr><tr><td>Pages:</td><td>'.$page_count.'</td></tr><tr><td>Categories:</td><td>'.$categories_list.'</td></tr><tr><td>Language:</td><td>'.$language.'</td></tr></table></section><section class = "book_description"><div class = "scroll_content">'.$description.'</div></section><section class="book_rating">
+        
+        <form class="like_form" id = "like_form_'.$book_id.'"><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'"> <span class="material-icons help_tips">help</span><span id="like_tooltip_'.$book_id.'" class="rating_tooltip">Add to your favourites</span><div class="custom_check_cont"><input onclick = "like_book(event, this)" id="check_'.$book_id.'" name = "check_'.$book_id.'" type= "checkbox" value = "liked" class = "like_btn '.$book_like.'"><label for = "check_'.$book_id.'" class = "like_checkbox"><span class="material-icons like_icon">favorite</span></label></div></form>
+        
+        <form class="rating_form" id="rating_form_'.$book_id.'"><span id="star_tooltip" class="rating_tooltip">Your rating</span><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'">
+        
+        <input type = "checkbox" class="star_check" id = "star_check_0_'.$book_id.'" name = "star_check_0" value = "0"><label for = "star_check_0"  class="star '.$star1.'" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+
+          <input type = "checkbox" class="star_check" id = "star_check_1_'.$book_id.'" name = "star_check_1" value = "1"><label for = "star_check_1"  class="star '.$star2.'" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+
+          <input type = "checkbox" class="star_check" id = "star_check_2_'.$book_id.'" name = "star_check_2" value = "2"><label for = "star_check_2"  class="star '.$star3.'" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+
+          <input type = "checkbox" class="star_check" id = "star_check_3_'.$book_id.'" name = "star_check_3" value = "3"><label for = "star_check_3"  class="star '.$star4.'" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
+
+          <input type = "checkbox" class="star_check" id = "star_check_4_'.$book_id.'" name = "star_check_4" value = "4"><label for = "star_check_4"  class="star '.$star5.'" onmousemove = "fill_star(event, this);" onmouseout = "empty_star(this)" onclick = "clicked_star(event, this)"></label>
           
 
           </form></section></article>');
+
+          
     }
 }
 
@@ -180,6 +276,8 @@ function check_description($results, $index){
     }
     return $description;
 }
+
+
 function check_published_date($results, $index){
     $date_exist = array_key_exists('publishedDate', $results['items'][$index]['volumeInfo']) ? true : false;
     $date = ($date_exist) ? $results['items'][$index]['volumeInfo']['publishedDate'] : 'N/A';
@@ -202,5 +300,41 @@ function check_page_count($results, $index){
     $page_count = ($page_count_exist) ? $results['items'][$index]['volumeInfo']['pageCount'] : 'N/A';
     return $page_count;
 }
+
+function check_if_known_book($book_id, $favourites){
+    
+    if (array_key_exists($book_id, $favourites)) {
+        return $favourites[$book_id];
+    }
+ }
+ 
+ function update_liked_book_session($book_id, $book_like){
+
+    if (array_key_exists($book_id, $_SESSION['records'])) {
+        session_start();
+        $_SESSION['records'][$book_id]["book_like"] = $book_like;
+    }
+    else{
+        $favourites[$book_id]["book_like"] = $book_like;
+        $favourites[$book_id]["book_rate"] = "";
+    }
+ 
+ }
+
+ function update_rated_book_session($favourites, $book_id, $book_rate){
+
+    if (array_key_exists($book_id, $favourites)) {
+        $favourites[$book_id]["book_rate"] = $book_rate;
+    }
+    else{
+        $favourites[$book_id]["book_like"] = "";
+        $favourites[$book_id]["book_rate"] = $book_rate;
+    }
+ 
+ }
+
+ 
+ 
+
 
 ?>

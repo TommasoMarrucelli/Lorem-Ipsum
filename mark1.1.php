@@ -94,6 +94,17 @@ if ($_POST['form_name'] == 'to_log') {
             elseif($stmt->rowCount() == 1){
                 if(password_verify($password, $results['pwd'])){
                     session_start();
+
+                    //search for user's likes and rating and store them in session
+                    $stmt = $dbh->prepare("SELECT book_id, book_like, book_rate FROM library WHERE user_id = ?");
+                    $stmt->bindParam( 1, $results['user_id']);
+                    $stmt->execute();
+                    $records = $stmt->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_UNIQUE);
+
+
+                    $_SESSION["records"] = $records;
+
+
                     $_SESSION["username"] = $results['username'];
                     $_SESSION["user_id"] = $results['user_id'];
                     $log_msg['log_success'] = "home.php";
