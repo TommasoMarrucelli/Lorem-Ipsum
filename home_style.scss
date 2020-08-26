@@ -103,16 +103,61 @@ body{
     background-color: $transparentPrimaryColor;
     transition: height 0.5s ease-in-out;
 
-    a{
+    div{
         width: 25%;
         color: #ffffff;
         text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+
+        span{
+          cursor: pointer;
+        }
+
+        .page_name{
+          margin-left: 3px;
+          visibility: hidden;
+          pointer-events: none;
+          opacity: 0;
+          transition: opacity 0.5s ease-in-out;
+        }
+        .hello_hand{
+          margin-right: 0.5em;
+          animation-name: helloHand; 
+          animation-duration: 2.5s;        
+          animation-iteration-count: infinite;  
+          transform-origin: 70% 70%;       
+          display: inline-block;
+        }
         
     }
   &:hover{
     height: 10%;
+
+    div .page_name{
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
+
+    #log_out{
+      display: none;
+    }
   }
   
+}
+@keyframes helloHand {
+  0% { transform: rotate( 0.0deg) }
+  10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
+  20% { transform: rotate(-8.0deg) }
+  30% { transform: rotate(14.0deg) }
+  40% { transform: rotate(-4.0deg) }
+  50% { transform: rotate(10.0deg) }
+  60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
+ 100% { transform: rotate( 0.0deg) }
+
 }
 
 main{

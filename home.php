@@ -1,6 +1,5 @@
 <?php
 session_start();
-print_r($_SESSION['records']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,31 +22,32 @@ print_r($_SESSION['records']);
 <div id="loading_img_box"><div id="loading_img"></div></div>
     <div id="main_cont">
         <div id="nav" data-aos="fade-right" data-aos-duration="1500">
-            <a href="">1</a>
-            <a href="">1</a>
-            <a href="">1</a>
-            <a href="">Hi <?php echo ($_SESSION['username']); ?>!</a>
+            <div class="page_link" id="home_page_link"><span class="material-icons">home</span><span class="page_name">Home</span></div>
+            <div class="page_link" id="liked_page_link"><span class="material-icons">favorite</span><span class="page_name">Books You Like</span></div>
+            <div class="page_link" id="rated_page_link"><span class="material-icons">grade</span><span class="page_name">Books You Rated</span></div>
+            <div class="page_link" id="log_out_link"><span class="material-icons hello_hand">pan_tool</span ><span id="log_out">Hi <?php echo ($_SESSION['username']); ?>! </span><span class="page_name">Log Out</span></div>
         </div>
-        <main>
+        <main id="home_page">
             <header id="search_box" data-aos="zoom-in" data-aos-duration="1500">
-                <section id="search_box_msg">Find your Book!</section>
+                <section id="search_box_msg">Find a Book!</section>
                 <form id="search_form" name="search_form" action="home1.1.php" method="POST">
-                    <input type="hidden" name="form_function" value="search_book">
+                    <input type="hidden" id="form_function" name="form_function" value="search_book">
                     <input type="hidden" id="page_number" name="page_number" value="0">
                     <input type="text" id="book_query" name="book_query">
-                    <button type="submit" id="submit_book" name="submit_book" onclick = "change_page(0)">Submit<span></span><span></span><span></span><span></span></button>
+                    <button type="submit" id="submit_book" name="submit_book" onclick = "change_results_page(0)">Submit<span></span><span></span><span></span><span></span></button>
                 </form>
             </header>
-
-
         </main>
-
+        
     </div>
-
+    <script src="home.js"></script>
+    <script>
+        set_page_navigation();
+        listen_to_search();
+    </script>
     <script>
         AOS.init();
     </script>
-    <script src="home.js"></script>
 </body>
 
 </html>

@@ -172,14 +172,133 @@ body::-webkit-scrollbar-thumb {
   transition: height 0.5s ease-in-out;
 }
 
-#nav a {
+#nav div {
   width: 25%;
   color: #ffffff;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#nav div span {
+  cursor: pointer;
+}
+
+#nav div .page_name {
+  margin-left: 3px;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#nav div .hello_hand {
+  margin-right: 0.5em;
+  -webkit-animation-name: helloHand;
+          animation-name: helloHand;
+  -webkit-animation-duration: 2.5s;
+          animation-duration: 2.5s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-transform-origin: 70% 70%;
+          transform-origin: 70% 70%;
+  display: inline-block;
 }
 
 #nav:hover {
   height: 10%;
+}
+
+#nav:hover div .page_name {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+#nav:hover #log_out {
+  display: none;
+}
+
+@-webkit-keyframes helloHand {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  10% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+  /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    -webkit-transform: rotate(-8deg);
+            transform: rotate(-8deg);
+  }
+  30% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+  40% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  50% {
+    -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+  }
+  60% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  /* Reset for the last half to pause */
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes helloHand {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  10% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+  /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    -webkit-transform: rotate(-8deg);
+            transform: rotate(-8deg);
+  }
+  30% {
+    -webkit-transform: rotate(14deg);
+            transform: rotate(14deg);
+  }
+  40% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  50% {
+    -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+  }
+  60% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  /* Reset for the last half to pause */
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
 }
 
 main {
