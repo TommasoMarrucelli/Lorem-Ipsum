@@ -1,0 +1,739 @@
+@import "style_variables";
+@import "logo_animation";
+
+@mixin centerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin centerRow {
+  display: flex;
+  align-items: center;
+}
+
+@mixin btn_animation($first_color, $second_color) {
+  border: 2px solid $first_color;
+  color: $first_color;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: 0.5s;
+
+  span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: $first_color;
+    z-index: -1;
+    left: calc((var(--n) - 1) * 25%);
+    transform: translateY(200%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+  }
+
+  &:hover {
+    color: $second_color;
+    border-color: $first_color;
+  }
+  &:hover span {
+    transform: translateY(0) scale(2);
+  }
+
+  span:nth-child(1) {
+    --n: 1;
+  }
+  span:nth-child(2) {
+    --n: 2;
+  }
+  span:nth-child(3) {
+    --n: 3;
+  }
+  span:nth-child(4) {
+    --n: 4;
+  }
+}
+
+body,
+html,
+#main_cont {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: $darkText;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+
+body {
+  background-image: url(../img/login_background.png);
+  background-attachment: fixed;
+  background-size: cover;
+
+  &::-webkit-scrollbar-track {
+    background-color: $secondaryColor;
+    box-shadow: inset 0 0 6px rgb(180, 180, 176);
+  }
+  &::-webkit-scrollbar {
+    width: 1.2em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-image: radial-gradient(rgb(9, 230, 223), $primaryColor);
+    border-radius: 20px;
+  }
+}
+#main_cont {
+  @include centerColumn();
+}
+#nav {
+  @include centerRow();
+  width: 100%;
+  height: 5%;
+
+  background-color: $transparentPrimaryColor;
+  transition: height 0.5s ease-in-out;
+
+  div {
+    width: 25%;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      cursor: pointer;
+    }
+
+    .page_name {
+      margin-left: 3px;
+      visibility: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .hello_hand {
+      margin-right: 0.5em;
+      animation-name: helloHand;
+      animation-duration: 2.5s;
+      animation-iteration-count: infinite;
+      transform-origin: 70% 70%;
+      display: inline-block;
+    }
+  }
+  &:hover {
+    height: 10%;
+
+    div .page_name {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+    }
+
+    #log_out {
+      display: none;
+    }
+  }
+}
+@keyframes helloHand {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+main {
+  @include centerColumn();
+  width: 80%;
+  height: 90%;
+  padding: 1rem;
+}
+header {
+  width: 60%;
+  min-width: 500px;
+  background-color: $transparentSecondaryColor;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-rows: 1fr 0.7fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 5px;
+
+  border-radius: 10px;
+  position: relative;
+  z-index: 40;
+
+  section {
+    @include centerRow();
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  form {
+    grid-area: 2 / 1 / 3 / 4;
+    width: 100%;
+    height: 2rem;
+
+    @include centerRow();
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  &:hover {
+    background-color: $secondaryColor;
+    font-weight: bolder;
+    text-shadow: 2px 2px 0 $secondaryColor, -2px -2px 0 $secondaryColor;
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    background-image: url(../img/duck.png);
+    background-position: bottom;
+    background-repeat: repeat;
+    animation: movingDuck 30s infinite linear;
+    animation-fill-mode: forwards;
+    z-index: -3 !important;
+    background-size: 10%;
+  }
+}
+#loading_img_box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+}
+#loading_img {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid $darkText;
+  border-left: 16px solid lightblue;
+  border-bottom: 16px solid #ffffff;
+  border-right: 16px solid $primaryColor;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes movingDuck {
+  0% {
+    background-position: 0 95%;
+  }
+  100% {
+    background-position: 30% 95%;
+  }
+}
+
+#book_query {
+  width: 75%;
+  height: 2.5rem;
+  text-align: left;
+  border-radius: 10px 0 0 10px;
+  border: 2px solid $borderColor;
+  border-right: none;
+
+  &:focus,
+  &:active,
+  &:focus + #submit_book,
+  &:active + #submit_book {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: $primaryColor;
+  }
+  &:focus + #submit_book,
+  &:active + #submit_book {
+    background-color: $primaryColor;
+  }
+}
+
+#submit_book {
+  @include btn_animation($darkText, #ffffffff);
+  width: 20%;
+  height: 2.5rem;
+  border-radius: 0 10px 10px 0;
+  border: 2px solid $transparentPrimaryColor;
+  background-color: $transparentPrimaryColor;
+  color: #ffffffff;
+  outline: none !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+article {
+  background-color: $transparentSecondaryColor;
+  border-radius: 10px;
+  min-height: 23rem;
+  margin: 1rem 0;
+  min-width: 100%;
+
+  display: grid;
+  grid-template-columns: 0.5fr repeat(2, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.book_title {
+  grid-area: 1 / 1 / 2 / 4;
+
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  max-height: 3rem;
+  overflow-x: hidden;
+  @include centerRow();
+  justify-content: center;
+
+  .show_title_button {
+    @include centerRow();
+    justify-content: center;
+    background-color: $primaryColor;
+    border-radius: 50px;
+    color: #ffffff;
+    outline: none !important;
+    box-shadow: none !important;
+    border: 2px solid $primaryColor;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      border-color: $darkText;
+    }
+  }
+  .complete_title {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    background-color: $primaryColor;
+    width: 60%;
+    border-radius: 10px;
+    padding: 1rem;
+    top: 10%;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: center;
+    align-items: left;
+  }
+}
+.complete_title.show_title {
+  transition: opacity 0.5s ease-in;
+  visibility: visible;
+  opacity: 100%;
+  pointer-events: all;
+  z-index: 10;
+}
+
+.book_thumbnail {
+  grid-area: 2 / 1 / 5 / 2;
+
+  @include centerRow();
+  justify-content: center;
+}
+.book_details {
+  grid-area: 2 / 2 / 5 / 3;
+
+  table {
+    width: 100%;
+    padding: 1rem;
+    border-spacing: 3px;
+  }
+  th,
+  td {
+    margin: 2px;
+    vertical-align: top;
+    min-width: 160px;
+    max-height: 50px;
+    overflow-y: hidden;
+  }
+}
+
+.book_rating {
+  grid-area: 5 / 1 / 7 / 3;
+  display: flex;
+
+  .rating_form,
+  .like_form {
+    @include centerRow();
+    height: 100%;
+    position: relative;
+  }
+  .like_form {
+    width: 40%;
+    justify-content: center;
+  }
+  .rating_tooltip {
+    background-color: $primaryColor;
+    padding: 0.5rem;
+    border-radius: 10px;
+    position: absolute;
+    transform: translateY(-100%);
+    color: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .rating_form {
+    width: 60%;
+  }
+  .help_tips {
+    color: $darkText;
+    font-size: 2rem;
+    left: 10px;
+    bottom: 10px;
+    position: absolute;
+  }
+  .rating_tooltip.show_tooltip {
+    transition: opacity 0.5s ease-in;
+    opacity: 1;
+  }
+  .custom_check_cont {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .like_btn {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+  }
+  .like_checkbox {
+    @include centerRow();
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: none;
+    background-color: rgba(63, 58, 92, 0.6);
+    border-radius: 50px;
+    cursor: pointer;
+  }
+  .like_icon {
+    font-size: 1.5rem;
+    color: $transparentSecondaryColor;
+    margin-top: 0.2rem;
+  }
+  .like_btn.liked + .like_checkbox,
+  .like_checkbox:hover {
+    background-color: $darkText;
+  }
+  .like_btn.liked + .like_checkbox {
+    animation: rateBtns 0.5s ease-in-out;
+  }
+
+  @keyframes rateBtns {
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(0.8);
+    }
+  }
+
+  .like_btn.liked + .like_checkbox span,
+  .like_checkbox:hover span {
+    color: rgb(240, 120, 120);
+  }
+
+  .star_check {
+    display: none;
+  }
+
+  .star::before {
+    content: "star_outline";
+    font-family: "Material Icons";
+    font-size: 2.5rem;
+    color: $darkText;
+  }
+  .star.full::before,
+  .star.full_clicked::before {
+    content: "star";
+    font-family: "Material Icons";
+    font-size: 2.5rem;
+  }
+  .star.half::before,
+  .star.half_clicked::before {
+    content: "star_half";
+    font-family: "Material Icons";
+    font-size: 2.5rem;
+  }
+  .star.full_clicked::before,
+  .star.half_clicked::before {
+    animation: starGrow 0.5s linear;
+  }
+  .star.half_clicked.hovered::before {
+    content: "star";
+    font-family: "Material Icons";
+    font-size: 2.5rem;
+  }
+
+  @keyframes starGrow {
+    50% {
+      font-size: 3.5rem;
+    }
+    100% {
+      font-size: 2.5rem;
+    }
+  }
+}
+.book_description {
+  grid-area: 2 / 3 / 7 / 4;
+
+  @include centerRow();
+  justify-content: center;
+  height: 90%;
+  overflow: auto;
+  visibility: hidden;
+  position: relative;
+
+  &:hover,
+  &:focus {
+    visibility: visible;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar {
+    width: 1em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $darkText;
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+  }
+}
+
+.scroll_content {
+  height: 100%;
+  position: absolute;
+  visibility: visible;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0 30px;
+}
+
+#page_box {
+  margin-bottom: 1rem;
+
+  button {
+    text-align: center;
+    background-color: transparent;
+    color: $darkText;
+    text-shadow: 2px 2px #ffffff;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  button.highlight_page {
+    text-shadow: none;
+    height: 2rem;
+    width: 2rem;
+    border: solid 2px #ffffff;
+    background-color: $primaryColor;
+    color: #ffffff;
+    transform: scale(1.2);
+  }
+}
+
+//Logo
+#big_logo_cont {
+  grid-area: 1 / 1 / 2 / 2;
+
+  @include centerRow();
+  width: 100%;
+  height: 100%;
+
+  svg {
+    height: 100%;
+  }
+}
+#big_logo {
+  z-index: 60;
+}
+
+@media only screen and (max-width: 768px) {
+  main {
+    margin-bottom: 30px;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  #nav {
+    height: 7%;
+
+    .page_name {
+      display: none;
+    }
+
+    &:hover {
+      height: 7%;
+
+      div .page_name {
+        opacity: 0;
+        display: none;
+      }
+
+      #log_out {
+        display: none;
+      }
+    }
+  }
+
+  main {
+    width: 100%;
+    padding: 0;
+
+    header {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 0.1fr 10fr 0.1fr;
+      min-width: 0px;
+
+      &::after {
+        border-radius: 0px 10px 10px 0px;
+      }
+    }
+
+    #submit_book {
+      min-width: 85px;
+    }
+  }
+  #search_box {
+    width: 100%;
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    grid-row-gap: 15px;
+    min-height: 800px;
+    padding: 30px 0px;
+
+    .book_title {
+      grid-area: 1 / 1 / 2 / 3;
+      font-size: 1.5rem;
+      overflow: visible;
+      margin: 20px 0px 30px 0px;
+      flex-direction: column;
+    }
+    .book_thumbnail {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+    .book_rating {
+      grid-area: 3 / 1 / 4 / 2;
+
+      .like_form {
+        width: 30%;
+        height: 100%;
+
+        label {
+          margin-top: 7px;
+        }
+      }
+      .rating_form {
+        width: 60%;
+        margin-left: 15px;
+        justify-content: center;
+      }
+
+      .help_tips {
+        display: none;
+      }
+      .like_checkbox:hover {
+        background-color: rgba(63, 58, 92, 0.6);
+      }
+      .like_checkbox:hover span {
+        color: $transparentSecondaryColor;
+      }
+    }
+    .book_details {
+      grid-area: 4 / 1 / 5 / 2;
+
+      .div_td {
+        max-height: 50px;
+        overflow-y: scroll;
+      }
+    }
+    .book_description {
+      grid-area: 5 / 1 / 6 / 2;
+      min-height: 120px;
+      .scroll_content {
+        min-height: 120px;
+      }
+    }
+  }
+  #page_box {
+    max-width: 100%;
+    button {
+      text-align: center;
+      background-color: transparent;
+      color: #ffffff;
+      text-shadow: 2px 2px $darkText;
+    }
+  }
+}

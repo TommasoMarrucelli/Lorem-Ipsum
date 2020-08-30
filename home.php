@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lorem Ipsum Books</title>
 
-    <link rel="stylesheet" type="text/css" href="home_style.css">
+    <link rel="stylesheet" type="text/css" href="css/home_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@ session_start();
         <main id="home_page">
             <header id="search_box" data-aos="zoom-in" data-aos-duration="1500">
                 <section id="search_box_msg">Find a Book!</section>
-                <form id="search_form" name="search_form" action="home1.1.php" method="POST">
+                <form id="search_form" name="search_form" action="home_backend.php" method="POST">
                     <input type="hidden" id="form_function" name="form_function" value="search_book">
                     <input type="hidden" id="page_number" name="page_number" value="0">
                     <input type="text" id="book_query" name="book_query">

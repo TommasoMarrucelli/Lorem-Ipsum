@@ -125,12 +125,13 @@ html,
 }
 
 body {
-  background-image: url(img/login_background.jpg);
+  background-image: url(../img/login_background.png);
   background-attachment: fixed;
   background-size: cover;
 }
 
-button:focus, button:active {
+button:focus,
+button:active {
   outline: none !important;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
@@ -315,7 +316,7 @@ input {
       -ms-flex-direction: column;
           flex-direction: column;
   font-size: 2em;
-  font-family: 'Arvo', serif;
+  font-family: "Arvo", serif;
   line-height: 10px;
   width: 100%;
   height: 10%;
@@ -506,7 +507,8 @@ input {
   }
 }
 
-.to_log_in.hide, .to_sign_up.hide {
+.to_log_in.hide,
+.to_sign_up.hide {
   display: none;
 }
 
@@ -556,7 +558,8 @@ main {
   width: 100%;
 }
 
-#log_form, #sign_form {
+#log_form,
+#sign_form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -584,7 +587,7 @@ main {
 
 .form_group[data-icon]::before {
   content: attr(data-icon);
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
   font-size: 1.4em;
@@ -609,8 +612,8 @@ main {
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
-  -webkit-font-feature-settings: 'liga';
-          font-feature-settings: 'liga';
+  -webkit-font-feature-settings: "liga";
+          font-feature-settings: "liga";
 }
 
 .cust_input {
@@ -882,6 +885,9 @@ footer {
     font-size: 1.5em;
     overflow-y: scroll;
   }
+  #right_box:hover, #right_box:focus {
+    background-color: rgba(255, 255, 240, 0.8);
+  }
   header {
     font-size: 0.7em;
   }
@@ -922,4 +928,4 @@ footer {
             animation: none;
   }
 }
-/*# sourceMappingURL=mark1_style.css.map */
+/*# sourceMappingURL=index.css.map */

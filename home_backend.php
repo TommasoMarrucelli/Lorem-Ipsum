@@ -320,9 +320,9 @@ function print_results($book_id, $title, $thumbnail, $authors_list, $published_d
 
         $book_like = ($user_know_book["book_like"] == 1) ? "liked" : "";
         
-        echo('<article id="'.$book_id.'" class="book_box" data-aos="zoom-in" data-aos-duration="1500"><section class="book_title">'.$title.'</section><section class="book_thumbnail"><img src = "'.$thumbnail.'" alt = "N/A"></section><section class="book_details"><table><tr><td>Authors:</td><td>'.$authors_list.'</td></tr><tr><td>Published Date:</td><td>'.$published_date.'</td></tr><tr><td>Pages:</td><td>'.$page_count.'</td></tr><tr><td>Categories:</td><td>'.$categories_list.'</td></tr><tr><td>Language:</td><td>'.$language.'</td></tr></table></section><section class = "book_description"><div class = "scroll_content">'.$description.'</div></section><section class="book_rating">
+        echo('<article id="'.$book_id.'" class="book_box" data-aos="zoom-in" data-aos-duration="1500"><section class="book_title">'.$title.'</section><section class="book_thumbnail"><img src = "'.$thumbnail.'" alt = "N/A"></section><section class="book_details"><table><tr><td>Authors:</td><td><div class="div_td">'.$authors_list.'</div></td></tr><tr><td>Published Date:</td><td>'.$published_date.'</td></tr><tr><td>Pages:</td><td>'.$page_count.'</td></tr><tr><td>Categories:</td><td><div class="div_td">'.$categories_list.'</div></td></tr><tr><td>Language:</td><td>'.$language.'</td></tr></table></section><section class = "book_description"><div class = "scroll_content">'.$description.'</div></section><section class="book_rating">
         
-        <form class="like_form" id = "like_form_'.$book_id.'"><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'"> <span class="material-icons help_tips">help</span><span id="like_tooltip_'.$book_id.'" class="rating_tooltip">Add to your favourites</span><div class="custom_check_cont"><input onclick = "like_book(event, this)" id="check_'.$book_id.'" name = "check_'.$book_id.'" type= "checkbox" value = "liked" class = "like_btn '.$book_like.'"><label for = "check_'.$book_id.'" class = "like_checkbox"><span class="material-icons like_icon">favorite</span></label></div></form>
+        <form class="like_form" id = "like_form_'.$book_id.'"><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'"> <span class="material-icons help_tips">help</span><span id="like_tooltip_'.$book_id.'" class="rating_tooltip">Add to your favourites</span><div class="custom_check_cont"><input  onclick = "like_book(event, this)" id="check_'.$book_id.'" name = "check_'.$book_id.'" type= "checkbox" value = "liked" class = "like_btn '.$book_like.'"><label for = "check_'.$book_id.'" class = "like_checkbox"><span class="material-icons like_icon">favorite</span></label></div></form>
         
         <form class="rating_form" id="rating_form_'.$book_id.'"><span id="star_tooltip" class="rating_tooltip">Your rating</span><input class = "book_id" type="hidden" name="book_id" value = "'.$book_id.'">
         
@@ -459,9 +459,3 @@ function check_if_known_book($book_id, $favourites){
     }
  
  }
-
- 
- 
-
-
-?>
