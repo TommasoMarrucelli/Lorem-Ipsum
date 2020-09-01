@@ -51,7 +51,7 @@ if ($_POST['form_name'] == 'to_sign') {
             $stmt->execute();
             $lastInsertId = $dbh->lastInsertId();
             if ($lastInsertId) {
-                $sign_msg['sign_success_msg'] = "You have signup successfully";
+                $sign_msg['sign_success_msg'] = "You have signed up successfully";
             } else {
 
                 $sign_msg['sign_problem_msg'] = "Something wrong here. Try again";

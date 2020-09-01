@@ -73,9 +73,7 @@ html,
 }
 
 body {
-  background-image: url(../img/login_background.png);
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: #e0d6ba;
 }
 
 button:focus,
@@ -92,9 +90,33 @@ input {
   padding-left: 0.5rem;
   background-color: $secondaryColor;
 }
+#loading_img_box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+}
+#loading_img {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid $darkText;
+  border-left: 16px solid lightblue;
+  border-bottom: 16px solid #ffffff;
+  border-right: 16px solid $primaryColor;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
 #main_cont {
   @include flexCenter();
   min-height: 575px;
+  background-image: url(../img/login_background.jpg);
+  background-attachment: fixed;
+  background-size: cover;
 }
 #main_box {
   display: flex;
@@ -420,8 +442,31 @@ footer {
   color: $errorColor;
 }
 .success_msg {
-  font-size: 1em;
+  @include flexCenter();
+  font-size: 1.2em;
+  background-color: $secondaryColor;
   color: $succesColor;
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
+}
+.success_msg.sign_success {
+  border: 2px solid $primaryColor;
+  border-radius: 0 0 10px 10px;
+  padding: 1rem;
+  animation: show_succ_sign_msg 2s ease-in-out;
+}
+
+@keyframes show_succ_sign_msg {
+  25% {
+    transform: translateY(0%);
+  }
+  75% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
 }
 
 @media only screen and (max-width: 768px) {

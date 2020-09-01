@@ -18,9 +18,11 @@
 </head>
 
 <body>
+    
+    <div id="loading_img_box">
+        <div id="loading_img"></div>
+    </div>
     <div id="main_cont">
-
-
         <div id="main_box">
             <div id="left_box" data-aos="fade-right">
                 <div id="big_logo_cont">
@@ -62,7 +64,6 @@
                         <div id="log_pwd_error_msg" class="error_msg"> </div>
 
                         <button id="log_in_btn" class="rigth_btn">Log In<span></span><span></span><span></span><span></span></button>
-                        <div id="log_success_msg" class="success_msg"></div>
 
                         <div id="log_problem_msg" class="error_msg"></div>
                         <div id="log_success_msg" class="success_msg"></div>
@@ -113,14 +114,15 @@
 
                         <button type="submit" id="sign_up_btn" name="sign_up_btn" class="rigth_btn">Sign Up<span></span><span></span><span></span><span></span></button>
                         <div id="sign_problem_msg" class="error_msg"></div>
-                        <div id="sign_success_msg" class="success_msg"></div>
+                        
                     </form>
                 </main>
 
             </div>
         </div>
-
+        
     </div>
+    <div id="sign_success_msg" class="success_msg"></div>
     <script>
         AOS.init();
     </script>

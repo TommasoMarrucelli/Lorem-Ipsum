@@ -1,3 +1,4 @@
+
 //When user search, a form is submitted and an ajax request is fired. Then the results are displayed
 function listen_to_search() {
   let search_form = document.getElementById("search_form");
