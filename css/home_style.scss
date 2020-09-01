@@ -268,6 +268,14 @@ header {
   }
 }
 
+#no_results_yet{
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: $secondaryColor;
+  color: $errorColor;
+  border-radius: 10px;
+}
+
 #book_query {
   width: 75%;
   height: 2.5rem;
@@ -336,6 +344,7 @@ article {
     box-shadow: none !important;
     border: 2px solid $primaryColor;
     position: relative;
+    min-height: 30px;
 
     &:hover,
     &:focus {
@@ -674,6 +683,7 @@ article {
 
     #submit_book {
       min-width: 85px;
+      padding: 0;
     }
   }
   #search_box {

@@ -467,6 +467,14 @@ header::after {
   }
 }
 
+#no_results_yet {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: ivory;
+  color: #d90012;
+  border-radius: 10px;
+}
+
 #book_query {
   width: 75%;
   height: 2.5rem;
@@ -606,6 +614,7 @@ article {
           box-shadow: none !important;
   border: 2px solid #0abab5;
   position: relative;
+  min-height: 30px;
 }
 
 .book_title .show_title_button:hover, .book_title .show_title_button:focus {
@@ -1036,6 +1045,7 @@ article {
   }
   main #submit_book {
     min-width: 85px;
+    padding: 0;
   }
   #search_box {
     width: 100%;

@@ -88,9 +88,14 @@ if($_POST['form_function'] == 'search_liked'){
     
 
     $key = $results;
-    print10($results, $key, $total_results);
     
-    create_footer($page_number, $total_pages);
+    if($total_results != 0){
+        print10($results, $key, $total_results);
+        create_footer($page_number, $total_pages);
+    }
+    else{
+        echo('<div id ="no_results_yet" class = "book_box">There are no books in your favourites yet</div>');
+    }
 }
 
 if($_POST['form_function'] == 'search_rated'){
@@ -145,9 +150,14 @@ if($_POST['form_function'] == 'search_rated'){
     
 
     $key = $results;
-    print10($results, $key, $total_results);
-    
-    create_footer($page_number, $total_pages);
+
+    if($total_results != 0){
+        print10($results, $key, $total_results);
+        create_footer($page_number, $total_pages);
+    }
+    else{
+        echo('<div id ="no_results_yet" class = "book_box">You have not rated any book yet</div>');
+    }
 }
 
 

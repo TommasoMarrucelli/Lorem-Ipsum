@@ -15,6 +15,8 @@ function listen_to_search() {
 //send data to backend and display results
 function search(submitted_form) {
   let formData = new FormData(submitted_form);
+
+  //display spinning during loading
   document.getElementById("loading_img_box").style.display = "flex";
 
   fetch("home_backend.php", {
@@ -99,6 +101,9 @@ function what_page(page_id) {
       delete_previous_results();
       search_box_title = "Find a Book!";
       form_function = "search_book";
+      action = () =>{
+          return
+      }
       break;
   }
 
@@ -125,13 +130,15 @@ function change_results_page(page_number) {
 }
 
 function highlight_page() {
-  let page_to_highlight = document
-    .querySelector("#highlight_page")
-    .getAttribute("value");
+     
+        let page_to_highlight = document.querySelector("#highlight_page");
 
-  let page = document.getElementById("p" + page_to_highlight);
-
-  page.classList.add("highlight_page");
+        if(page_to_highlight){
+            let page_to_highlight_val = page_to_highlight.getAttribute("value");
+            let page = document.getElementById("p" + page_to_highlight);
+            page.classList.add("highlight_page");
+        }
+        
 }
 
 function show_complete_title(button) {
