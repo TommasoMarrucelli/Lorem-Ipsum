@@ -135,7 +135,7 @@ function highlight_page() {
 
         if(page_to_highlight){
             let page_to_highlight_val = page_to_highlight.getAttribute("value");
-            let page = document.getElementById("p" + page_to_highlight);
+            let page = document.getElementById("p" + page_to_highlight_val);
             page.classList.add("highlight_page");
         }
         
