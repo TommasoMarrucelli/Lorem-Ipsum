@@ -8,7 +8,7 @@ $query = '';
 
 if($_POST['form_function'] == 'search_book'){
 
-$book_queried = filter_var(trim($_POST['book_query']), FILTER_SANITIZE_STRING);
+$book_queried = filter_var(trim(str_replace(' ', '+', $_POST['book_query'])), FILTER_SANITIZE_STRING);
 $page_number = filter_var(trim($_POST['page_number']), FILTER_SANITIZE_NUMBER_INT);
 $_SESSION['page_number'] = $page_number;
 $start_index = ($page_number > 0) ? ($page_number * 10) : 0;
@@ -38,7 +38,7 @@ create_footer($page_number, $total_pages);
 
 if($_POST['form_function'] == 'search_liked'){
 
-    $book_queried = filter_var(trim($_POST['book_query']), FILTER_SANITIZE_STRING);
+    $book_queried = filter_var(trim(str_replace(' ', '+', $_POST['book_query'])), FILTER_SANITIZE_STRING);
     $page_number = filter_var(trim($_POST['page_number']), FILTER_SANITIZE_NUMBER_INT);
     $_SESSION['page_number'] = $page_number;
     $start_index = ($page_number > 0) ? ($page_number * 10) : 0;
@@ -100,7 +100,7 @@ if($_POST['form_function'] == 'search_liked'){
 
 if($_POST['form_function'] == 'search_rated'){
 
-    $book_queried = filter_var(trim($_POST['book_query']), FILTER_SANITIZE_STRING);
+    $book_queried = filter_var(trim(str_replace(' ', '+', $_POST['book_query'])), FILTER_SANITIZE_STRING);
     $page_number = filter_var(trim($_POST['page_number']), FILTER_SANITIZE_NUMBER_INT);
     $_SESSION['page_number'] = $page_number;
     $start_index = ($page_number > 0) ? ($page_number * 10) : 0;
