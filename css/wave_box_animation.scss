@@ -1,7 +1,17 @@
 #background_waves{
     position: absolute;
+    -webkit-animation: moving_waves 5s infinite ease-out;
     animation: moving_waves 5s infinite ease-out;
     
+}
+
+@-webkit-keyframes moving_waves{
+    0%{
+        background-position-x: 0px;
+    }
+    100%{
+        background-position-x: 1000px;
+    }
 }
 
 @keyframes moving_waves{

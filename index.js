@@ -71,9 +71,9 @@ function toggle_sign_log() {
   
     let btn_text = toggle_btn.innerHTML;
     let btn_new_text =
-      btn_text == "Log In <span></span><span></span><span></span><span></span>"
-        ? "Sign Up <span></span><span></span><span></span><span></span>"
-        : "Log In <span></span><span></span><span></span><span></span>";
+      btn_text == "Sign Up<span></span><span></span><span></span><span></span>"
+        ? "Log In<span></span><span></span><span></span><span></span>"
+        : "Sign Up<span></span><span></span><span></span><span></span>";
     toggle_btn.innerHTML = btn_new_text;
   
     let msg_text = sign_log_msg.innerHTML;

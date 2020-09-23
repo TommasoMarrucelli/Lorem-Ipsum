@@ -1,6 +1,6 @@
 #wave_front {
   -webkit-animation: waveFront 5s infinite linear;
-          animation: waveFront 5s infinite linear;
+  animation: waveFront 5s infinite linear;
   fill-opacity: 1;
 }
 
@@ -36,7 +36,7 @@
 
 #wave_mid {
   -webkit-animation: waveMid 5s infinite linear;
-          animation: waveMid 5s infinite linear;
+  animation: waveMid 5s infinite linear;
   fill-opacity: 1;
 }
 
@@ -72,7 +72,7 @@
 
 #wave_back {
   -webkit-animation: waveBack 5s infinite linear;
-          animation: waveBack 5s infinite linear;
+  animation: waveBack 5s infinite linear;
   fill-opacity: 1;
 }
 

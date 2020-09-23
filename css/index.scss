@@ -1,5 +1,5 @@
 @import "style_variables";
-@import "logo_animation";
+
 
 @mixin flexCenter {
   display: flex;
@@ -109,6 +109,7 @@ input {
   border-radius: 50%;
   width: 120px;
   height: 120px;
+  -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
 #main_cont {
@@ -169,27 +170,34 @@ input {
     height: 80%;
   }
 }
+#wave_back, #wave_mid, #wave_front{
 
+  fill-opacity: 1;
+}
 .tumbling {
   animation: tumbling 1.5s linear;
 }
 @keyframes tumbling {
-  25% {
+  20% {
     transform: rotate(15deg);
     transform-origin: 40% 50%;
   }
-  50% {
+  40% {
     transform: rotate(-15deg);
     transform-origin: 40% 50%;
   }
-  75% {
+  60% {
     transform: rotate(15deg);
     transform-origin: 40% 50%;
   }
 
-  100% {
+  80% {
     transform: rotate(-15deg);
-    transform-origin: 40% 50%; /* Chrome, Firefox behaves differently */
+    transform-origin: 40% 50%; 
+  }
+  100%{
+    transform: rotate(0deg);
+    transform-origin: 40% 50%;
   }
 }
 #big_logo {

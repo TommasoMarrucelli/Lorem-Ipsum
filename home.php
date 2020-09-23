@@ -7,7 +7,8 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorem Ipsum Books</title>
+    <title>Lorem Ipsum Library</title>
+    <link rel="shortcut icon" href="img/duck.ico" />
 
     <link rel="stylesheet" type="text/css" href="css/home_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
@@ -19,13 +20,15 @@ session_start();
 </head>
 
 <body>
-<div id="loading_img_box"><div id="loading_img"></div></div>
+    <div id="loading_img_box">
+        <div id="loading_img"></div>
+    </div>
     <div id="main_cont">
         <div id="nav" data-aos="fade-right" data-aos-duration="1500">
             <div class="page_link" id="home_page_link"><span class="material-icons">home</span><span class="page_name">Home</span></div>
             <div class="page_link" id="liked_page_link"><span class="material-icons">favorite</span><span class="page_name">Books You Like</span></div>
             <div class="page_link" id="rated_page_link"><span class="material-icons">grade</span><span class="page_name">Books You Rated</span></div>
-            <div class="page_link" id="log_out_link"><span class="material-icons hello_hand">pan_tool</span ><span id="log_out">Hi <?php echo ($_SESSION['username']); ?>! </span><span class="page_name">Log Out</span></div>
+            <div class="page_link" id="log_out_link"><span class="material-icons hello_hand">pan_tool</span><span id="log_out">Hi <?php echo ($_SESSION['username']); ?>! </span><span class="page_name">Log Out</span></div>
         </div>
         <main id="home_page">
             <header id="search_box" data-aos="zoom-in" data-aos-duration="1500">
@@ -34,11 +37,11 @@ session_start();
                     <input type="hidden" id="form_function" name="form_function" value="search_book">
                     <input type="hidden" id="page_number" name="page_number" value="0">
                     <input type="text" id="book_query" name="book_query">
-                    <button type="submit" id="submit_book" name="submit_book" onclick = "change_results_page(0)">Submit<span></span><span></span><span></span><span></span></button>
+                    <button type="submit" id="submit_book" name="submit_book" onclick="change_results_page(0)">Submit<span></span><span></span><span></span><span></span></button>
                 </form>
             </header>
         </main>
-        
+
     </div>
     <script src="home.js"></script>
     <script>

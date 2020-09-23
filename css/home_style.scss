@@ -1,5 +1,5 @@
 @import "style_variables";
-@import "logo_animation";
+
 
 @mixin centerColumn {
   display: flex;
@@ -65,6 +65,8 @@ html,
 }
 
 * {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
   box-sizing: border-box;
   font-family: "Raleway", sans-serif;
   font-size: 20px;
@@ -319,9 +321,10 @@ article {
 
   display: grid;
   grid-template-columns: 0.5fr repeat(2, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: 3rem 230px 150px;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  grid-auto-rows: auto;
 }
 
 .book_title {
@@ -366,6 +369,16 @@ article {
     text-align: center;
     align-items: left;
   }
+
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
 }
 .complete_title.show_title {
   transition: opacity 0.5s ease-in;
@@ -376,13 +389,14 @@ article {
 }
 
 .book_thumbnail {
-  grid-area: 2 / 1 / 5 / 2;
-
+  grid-area: 2 / 1 / 3 / 2;
+  max-height: 230px;
   @include centerRow();
   justify-content: center;
 }
 .book_details {
-  grid-area: 2 / 2 / 5 / 3;
+  max-height: 230px;
+  grid-area: 2 / 2 / 3 / 3;
 
   table {
     width: 100%;
@@ -400,7 +414,7 @@ article {
 }
 
 .book_rating {
-  grid-area: 5 / 1 / 7 / 3;
+  grid-area: 3 / 1 / 4 / 3; 
   display: flex;
 
   .rating_form,
@@ -408,6 +422,7 @@ article {
     @include centerRow();
     height: 100%;
     position: relative;
+    max-height: 155px;
   }
   .like_form {
     width: 40%;
@@ -538,12 +553,13 @@ article {
   }
 }
 .book_description {
-  grid-area: 2 / 3 / 7 / 4;
+  grid-area: 2 / 3 / 4 / 4;
 
   @include centerRow();
   justify-content: center;
   height: 90%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   visibility: hidden;
   position: relative;
 
@@ -561,8 +577,9 @@ article {
   }
   &::-webkit-scrollbar-thumb {
     background-color: $darkText;
-    outline: 1px solid slategrey;
+    outline: none;
     border-radius: 10px;
+
   }
 }
 
@@ -693,9 +710,9 @@ article {
   article {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    grid-template-rows: 3rem 230px 100px 200px 180px;
     grid-row-gap: 15px;
-    min-height: 800px;
+    min-height: 900px;
     padding: 30px 0px;
 
     .book_title {
@@ -704,12 +721,15 @@ article {
       overflow: visible;
       margin: 20px 0px 30px 0px;
       flex-direction: column;
+      min-height: auto;
     }
     .book_thumbnail {
       grid-area: 2 / 1 / 3 / 3;
+      min-height: auto;
     }
     .book_rating {
       grid-area: 3 / 1 / 4 / 2;
+      min-height: auto;
 
       .like_form {
         width: 30%;
@@ -737,6 +757,7 @@ article {
     }
     .book_details {
       grid-area: 4 / 1 / 5 / 2;
+      min-height: auto;
 
       .div_td {
         max-height: 50px;
@@ -744,6 +765,7 @@ article {
       }
     }
     .book_description {
+      min-height: auto;
       grid-area: 5 / 1 / 6 / 2;
       min-height: 120px;
       .scroll_content {
@@ -761,3 +783,5 @@ article {
     }
   }
 }
+
+

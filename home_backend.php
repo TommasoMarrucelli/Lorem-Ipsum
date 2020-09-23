@@ -28,7 +28,7 @@ $total_results = $results['totalItems'];
 
 $total_pages = $total_results / 10;
 $key = $results['items'];
-print10($results, $key, $total_results);
+print10($key, $total_results);
 
 
 create_footer($page_number, $total_pages);
@@ -90,7 +90,7 @@ if($_POST['form_function'] == 'search_liked'){
     $key = $results;
     
     if($total_results != 0){
-        print10($results, $key, $total_results);
+        print10($key, $total_results);
         create_footer($page_number, $total_pages);
     }
     else{
@@ -152,7 +152,7 @@ if($_POST['form_function'] == 'search_rated'){
     $key = $results;
 
     if($total_results != 0){
-        print10($results, $key, $total_results);
+        print10($key, $total_results);
         create_footer($page_number, $total_pages);
     }
     else{
@@ -240,7 +240,7 @@ if($_POST['form_function'] == 'log_out'){
 }
 
 //displays ten results per page
-function print10($results, $key, $results_count){
+function print10($key, $results_count){
 
     for($x = 0; $x < min(10, $results_count) ; $x++){
         
