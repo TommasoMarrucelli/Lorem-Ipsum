@@ -1,7 +1,7 @@
 <?php
-$dsn = 'mysql:host=sql210.epizy.com;dbname=epiz_26591859_lorem_ipsum;charset=UTF8';
-$user = 'epiz_26591859';
-$dbpassword = 'wscWMsAoTjSH';
+$dsn = 'mysql:host=xxx;dbname=xxx;charset=UTF8';
+$user = 'xxx';
+$dbpassword = 'xxx';
 
 try {
             $dbh = new PDO($dsn, $user, $dbpassword);
